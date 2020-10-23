@@ -1,37 +1,39 @@
 package com.programing_school.person;
 
-import java.util.Date;
+import com.programing_school.Language;
+import com.programing_school.Module;
 
-public class Mentor extends Person {
-    private Module module;
-    private int salary;
-    private Language knowledge;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Mentor(String name, Date birthDate, String phoneNumber, int salary) {
-        super(name, birthDate, phoneNumber);
-        this.salary = salary;
+public class Mentor extends Employee {
+
+    private final List<Module> modules;
+    private final List<Language> knowledge;
+
+    public Mentor(String name, String birthDate, String phoneNumber, int salary) {
+        super(name, birthDate, phoneNumber, salary);
+        this.knowledge = new ArrayList<>();
+        this.modules = new ArrayList<>();
     }
 
-    public void setKnowledge(Language knowledge) {
-        this.knowledge = knowledge;
-    }
-
-    public Language getKnowledge() {
+    public List<Language> getKnowledge() {
         return knowledge;
     }
 
-    public void setModule() {
-        if (this.getKnowledge().equals(Language.PYTHON))
-            this.module = Module.PROGRAMING_BASICS;
-        else if (this.getKnowledge().equals(Language.WEB))
-            this.module = Module.WEB;
-        else if (this.getKnowledge().equals(Language.JAVA_SE))
-            this.module = Module.OOP;
-        else if (this.getKnowledge().equals(Language.JAVA_EE))
-            this.module = Module.ADVANCED;
+    public void addKnowledge(Language language) {
+        knowledge.add(language);
     }
 
-    public Module getModule() {
-        return module;
+    public List<Module> getModules() {
+        return modules;
+    }
+
+    public void setModule(Module module) {
+
+        if (!knowledge.contains(module.getLanguage())) {
+            System.out.println("Sorry " + this.getName() + ", your knowledge does not match the " + module + " module");
+        }
+        modules.add(module);
     }
 }
